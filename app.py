@@ -113,3 +113,102 @@ def get_game(id_evento):
     ''', {'id': id_evento}).fetchall()
   return render_template('games.html', 
            evento_data = evento_data, stats_events_atletas = stats_events_atletas)
+
+  #-------------EQUIPAS------------------
+#teams list
+@APP.route('/teams/')
+def list_teams():
+   teams = db.execute(
+      '''
+      SELECT idEquipas, team, NOC
+      FROM Equipas 
+      ORDER BY idEquipas
+      ''').fetchall()
+   return render_template('teams-list.html', teams=teams)
+
+
+#teams id
+@APP.route('/teams/<int:id_equipa>/')
+def get_team(id_equipa):
+  team_data = db.execute(
+    '''
+    SELECT idEquipas, team, NOC
+    FROM Equipas
+    WHERE idEquipas = :id
+    ''', {'id': id_equipa}).fetchall()
+  
+  team_members = db.execute(
+     '''
+    SELECT a.name, MIN(a.idAtletas) as idAtletas
+    FROM Atletas a JOIN Equipas e ON a.idEquipas = e.idEquipas
+    WHERE e.idEquipas = :id
+    GROUP BY name
+    ORDER BY idAtletas
+     ''', {'id': id_equipa}).fetchall()
+
+  return render_template('teams.html', 
+           team_data = team_data, team_members = team_members)
+
+
+#teams search
+@APP.route('/teams/search/<expr>/')
+def search_teams(expr):
+  search = { 'expr': expr }
+  expr = '%' + expr + '%'
+  teams = db.execute(
+    ''' 
+    SELECT team, idEquipas
+    FROM Equipas 
+    WHERE team LIKE ?
+    GROUP BY team
+    ''', [expr]).fetchall()
+  return render_template('teams-search.html',
+           search=search,teams=teams)
+
+
+
+#---------------CATEGORIAS---------------------------
+
+#categories list
+@APP.route('/categories/')
+def list_categories():
+   categories = db.execute(
+      '''
+      SELECT idCategorias, event
+      FROM Categorias
+      ORDER BY idCategorias
+      ''').fetchall()
+   return render_template('categories-list.html', categories=categories)
+
+
+
+
+#-----------------MODALIDADES--------------------------
+
+#sports list
+@APP.route('/sports/')
+def list_sports():
+   sports = db.execute(
+      '''
+      SELECT idModalidades, sport
+      FROM Modalidades
+      ORDER BY idModalidades
+      ''').fetchall()
+   return render_template('sports-list.html', sports=sports)
+
+
+#sports id
+@APP.route('/sports/<int:id_modalidade>/')
+def get_sport(id_modalidade):
+  sport_data = db.execute(
+      '''
+      select c.event as event
+      from Categorias c join Modalidades m on c.idModalidades=m.idModalidades
+      where m.idModalidades = :id
+      order by c.idCategorias
+
+      ''', {'id': id_modalidade}).fetchall()
+  
+  print("Sport Data:", sport_data)  
+  return render_template('sports.html', sport_data=sport_data)
+
