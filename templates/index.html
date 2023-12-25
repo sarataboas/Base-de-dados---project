@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Ollympic Games Database</h1>
+<p> This webpage let's you navigate throught Ollympic Games History. 
+  The application is built using 
+  <a href="https://docs.python.org/3/library/sqlite3.html">sqlite3</a>,
+  <a href="https://flask.palletsprojects.com">Flask</a>, and
+  <a href="https://jinja.palletsprojects.com">Jinja</a>.
+</p>
+
+<h2> Database Statistics </h2>
+<table>
+  <tr>
+    <th>Items</th>
+    <th>Count</th>
+  </tr>
+  <tr>
+    <td>Athletes</td>
+    <td>{{ stats.n_atletas }}</td>
+  </tr>
+  <tr>
+    <td>Sports</td>
+    <td>{{ stats.n_modalidades }}</td>
+  </tr>
+  <tr>
+    <td>Categories</td>
+    <td>{{ stats.n_categorias }}</td>
+  </tr>
+  <tr>
+    <td>Games</td>
+    <td>{{ stats.n_eventos }}</td>
+  </tr>
+  <tr>
+    <td>Teams</td>
+    <td>{{ stats.n_equipas }}</td>
+  </tr>
+</table>
+
+<h2>Sample functionality</h2>
+
+<h3>Athlets</h3>
+<p>
+   <a href="/athletes">List all</a>
+</p>
+<p>Get athlete info:
+  <form name="mid" action="javascript:window.open('/athletes/'+document.forms['mid'].elements['id'].value,'_self')">
+     Athletes Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+  </form>
+  </p>
+
+  <p>Search by athlete name:
+    <form name="msearch" action="javascript:window.open('/athletes/search/'+document.forms['msearch'].elements['expr'].value,'_self')">
+      <input name="expr" id="expr" value=" " required/>
+      <input type="submit" value="search"/>
+    </form>
+    </p>
+
+    <h3>Teams</h3>
+    <p>
+       <a href="/teams">List all</a>
+    </p>
+    <p>Get team info:
+    <form name="aid" action="javascript:window.open('/teams/'+document.forms['aid'].elements['id'].value,'_self')">
+       Team Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+    </form>
+    </p>
+      
+    <p>Search by team name (prone to <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>!)
+      <form name="asearch" action="javascript:window.open('/teams/search/'+document.forms['asearch'].elements['expr'].value,'_self')">
+        <input name="expr" id="expr" value=" " required/>
+        <input type="submit" value="search"/>
+      </form>
+    </p>
+    
+    <h3>Categories</h3>
+    <p>
+       <a href="/categories">List all</a>
+    </p>
+    
+    <p>Get categories info:
+    <form name="gid" action="javascript:window.open('/categories/'+document.forms['gid'].elements['id'].value,'_self')">
+       Category Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+    </form>
+    </p>
+    
+    <h3>Games</h3>
+    <p>
+       <a href="/games">List all</a>
+    </p>
+    
+    <p>Get Games info:
+    <form name="gid" action="javascript:window.open('/games/'+document.forms['gid'].elements['id'].value,'_self')">
+       Games Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+    </form>
+    </p>
+    
+
+{% endblock %}

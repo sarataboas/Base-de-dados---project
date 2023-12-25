@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Teams</h1>
+<table>
+    <tr>
+        <th>
+            <b>Id</b>
+        </th>
+        <th>
+            <b>Team</b>
+        </th>
+        <th>
+            <b>National Olympic Committee</b>
+        </th>
+    </tr>
+    {% for t in teams %}
+    <tr>
+        <td>
+            <a href="/teams/{{ t.idEquipas }}">{{ t.idEquipas }}</a>
+        </td>
+        <td>
+            {{ t.team }}
+        </td>
+        <td>
+            {{ t.NOC }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

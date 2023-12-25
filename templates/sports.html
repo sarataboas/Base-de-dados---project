@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <title>Sports Categories</title>
+
+    {% if sport_data %}
+        <ul>
+            {% for sport in sport_data %}
+                <li>{{ sport.event }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+
+

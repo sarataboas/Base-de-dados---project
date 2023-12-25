@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h1>Games Details</h1>
+
+  {% if evento_data %}
+        <ul>
+            {% for event in evento_data %}
+                <li>
+                    <p>
+                        <b> Year: </b>{{ event.year }}<br>
+                    </p>
+                    <p>
+                        <b> Season: </b>{{ event.season }}<br>
+                    </p>
+                    <p>
+                        <b> City: </b>  {{ event.city }}<br>
+                    </p>
+                    <p>
+                        <b> Number of Athletes: </b>  {{ stats_events_atletas[0].n_atletas }}<br>
+                    </p>
+                </li>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No events found for the specified team.</p>
+  {% endif %}
+
+{% endblock %}

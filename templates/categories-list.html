@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Categories</h1>
+<table>
+    <tr>
+        <th>
+            <b>Id</b>
+        </th>
+        <th>
+            <b>Category</b>
+        </th>
+    </tr>
+    {% for c in categories %}
+    <tr>
+        <td>
+            <a href="/categories/{{ c.idCategorias }}">{{ c.idCategorias }}</a>
+        </td>
+        <td>
+            {{ c.event }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

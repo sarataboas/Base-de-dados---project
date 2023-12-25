@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+    <title>Team Information</title>
+
+    {% if team_data %}
+    <ul>
+        {% for team in team_data %}
+        <li>
+            <p>
+              <b> {{ team.team }}</b>
+            </p>
+            <p>
+              <b>ID:</b> {{ team.idEquipas }}<br>
+            </p>
+            <p>
+              <b>NOC (National Olympic Committee):</b> {{ team.NOC }}<br>
+            </p>
+          </li>
+      {% endfor %}
+
+    <h2>Team Members</h2>
+    {% if team_members %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in team_members %}
+            <tr>
+                <td><a href= "/athletes/{{member.idAtletas}}">{{ member.idAtletas }}</a></td>
+                <td>{{ member.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No team members found.</p>
+    {% endif %}
+    
+</ul>
+{% endif %}
+{% endblock %}
+   

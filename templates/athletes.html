@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+    <title>Athlete Information</title>
+
+    {% if athlete_data %}
+        <ul>
+            {% for athlete in athlete_data %}
+                <li>
+                  <p>
+                    <b> {{ athlete.name }}</b>
+                  </p>
+                  <p>
+                    <b>ID:</b> {{ athlete.idAtletas }}<br>
+                  </p>
+                  <p>
+                    <b>Sex:</b> {{ athlete.sex }}<br>
+                  </p>
+                </li>
+            {% endfor %}
+
+            <h2>Athlete Participations</h2>
+
+        {% if athlete_participations %}
+            <ul>
+                {% for participation in athlete_participations %}
+                    <li>
+                        <strong>Event:</strong> {{ participation.event }}<br>
+                        <strong>City:</strong> {{ participation.city }}<br>
+                        <strong>Season:</strong> {{ participation.season }}<br>
+                        <strong>Year:</strong> {{ participation.year }}<br>
+                        <strong>Medal:</strong> {{ participation.medal }}<br>
+                        
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No participations found for this athlete.</p>
+        {% endif %}
+
+        </ul>
+    {% else %}
+        <p>Athlete not found.</p>
+    {% endif %}
+
+    {% endblock %}

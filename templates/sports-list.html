@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Sports</h1>
+<table>
+    <tr>
+        <th>
+            <b>Id</b>
+        </th>
+        <th>
+            <b>Sport</b>
+        </th>
+    </tr>
+    {% for s in sports %}
+    <tr>
+        <td>
+            <a href="/sports/{{ s.idModalidades }}">{{ s.idModalidades }}</a>
+        </td>
+        <td>
+            {{ s.sport }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

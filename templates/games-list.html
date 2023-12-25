@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Games</h1>
+<table>
+  <tr>
+    <th>
+      <b>Id</b>
+    </th>
+    <th>
+      <b>Name</b>
+    </th>
+  </tr>
+  {% for g in games %}
+  <tr>
+    <td>
+      <a href="/games/{{ g.idEventos }}">{{ g.idEventos }}</a>
+    </td>
+    <td>
+      {{ g.year }}
+      {{ g.season }}
+      {{ g.city }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
