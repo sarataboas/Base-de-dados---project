@@ -66,23 +66,13 @@
     </form>
     </p>
       
-    <p>Search by team name (prone to <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection</a>!)
+    <p>Search by team name
       <form name="asearch" action="javascript:window.open('/teams/search/'+document.forms['asearch'].elements['expr'].value,'_self')">
         <input name="expr" id="expr" value=" " required/>
         <input type="submit" value="search"/>
       </form>
     </p>
     
-    <h3>Categories</h3>
-    <p>
-       <a href="/categories">List all</a>
-    </p>
-    
-    <p>Get categories info:
-    <form name="gid" action="javascript:window.open('/categories/'+document.forms['gid'].elements['id'].value,'_self')">
-       Category Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
-    </form>
-    </p>
     
     <h3>Games</h3>
     <p>
@@ -94,6 +84,31 @@
        Games Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
     </form>
     </p>    
+    <p>Search by game year, city or season
+      <form name="gsearch" action="javascript:window.open('/games/search/'+document.forms['gsearch'].elements['expr'].value,'_self')">
+        <input name="expr" id="expr" value="" required/>
+        <input type="submit" value="search"/>
+      </form>
+    </p>
+
+
+
+    <h3>Categories</h3>
+    <p>
+       <a href="/categories">List all</a>
+    </p>
+    
+    <p>Get categories info:
+    <form name="gid" action="javascript:window.open('/categories/'+document.forms['gid'].elements['id'].value,'_self')">
+       Category Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+    </form>
+    </p>
+    <p>Search by category name 
+      <form name="csearch" action="javascript:window.open('/categories/search/'+document.forms['csearch'].elements['expr'].value,'_self')">
+        <input name="expr" id="expr" value="" required/>
+        <input type="submit" value="search"/>
+      </form>
+    </p>
 
     <h3>Sports</h3>
     <p>
@@ -103,6 +118,12 @@
     <form name="tid" action="javascript:window.open('/teams/'+document.forms['tid'].elements['id'].value,'_self')">
        Sports Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
     </form>
+    </p>
+    <p>Search by sport name 
+      <form name="ssearch" action="javascript:window.open('/sports/search/'+document.forms['ssearch'].elements['expr'].value,'_self')">
+        <input name="expr" id="expr" value="" required/>
+        <input type="submit" value="search"/>
+      </form>
     </p>
 
 
