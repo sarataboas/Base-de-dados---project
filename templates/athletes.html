@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-    <title>Athlete Information</title>
+    
 
     {% if athlete_data %}
         <ul>
             {% for athlete in athlete_data %}
                 <li>
                   <p>
-                    <b> {{ athlete.name }}</b>
+                    <h2> {{ athlete.name }}</h2>
                   </p>
                   <p>
                     <b>ID:</b> {{ athlete.idAtletas }}<br>
