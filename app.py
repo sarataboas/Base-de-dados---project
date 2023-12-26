@@ -167,9 +167,25 @@ def get_team(id_equipa):
     GROUP BY name
     ORDER BY idAtletas
      ''', {'id': id_equipa}).fetchall()
+  
+  team_members_years = db.execute(
+    '''
+    SELECT DISTINCT a.name, eq.team, a.idAtletas, eq.NOC, e.year, c.event, e.city, e.season
+    FROM Atletas a JOIN Equipas eq ON (a.idEquipas = eq.idEquipas)
+    JOIN Participacoes p ON (p.idAtletas = a.idAtletas)
+    JOIN Eventos e ON (e.idEventos = p.idEventos)
+    JOIN Categorias c ON (c.idCategorias = p.idCategorias)
+    WHERE a.idAtletas in
+    (
+      SELECT a.idAtletas
+      FROM Atletas a JOIN Equipas eq ON (a.idEquipas = eq.idEquipas)
+      where eq.idEquipas = :id
+    )
+    ORDER BY e.year ASC
+    ''', {'id': id_equipa}).fetchall()
 
   return render_template('teams.html', 
-           team_data = team_data, team_members = team_members)
+           team_data = team_data, team_members_years = team_members_years)
 
 
 #teams search
