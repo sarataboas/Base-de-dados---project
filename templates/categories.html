@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+    <title>{{ category_data[0].event }} Results</title>
+
+    <h1>{{ category_data[0].event }} Results</h1>
+
+    {% if category_data %}
+        {% set unique_years = [] %}
+        <ul>
+            {% for data in category_data %}
+                {% if data.year not in unique_years %}
+                    {% set _ = unique_years.append(data.year) %}
+                    <li>
+                        <p>
+                            <b>Year:</b> {{ data.year }}<br>
+                        </p>
+                        
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Medal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for result in category_data if result.year == data.year %}
+                                    <tr>
+                                        <td><a href="/athletes/{{ result.idAtletas }}">{{ result.idAtletas }}</a></td>
+                                        <td>{{ result.name }}</td>
+                                        <td>{{ result.medal }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found for {{ category_data[0].event }}.</p>
+    {% endif %}
+{% endblock %}
+
+

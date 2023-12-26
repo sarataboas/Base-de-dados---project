@@ -37,6 +37,8 @@ def list_athletes():
       ''').fetchall()
     return render_template('athletes-list.html', athletes=athletes)
   
+
+#--------------------ATLETAS-----------------------
 #athletes id  
 @APP.route('/athletes/<int:id_atleta>/')
 def get_athlete(id_atleta):
@@ -76,8 +78,11 @@ def search_athletes(expr):
       ''', [expr]).fetchall()
   return render_template('athletes-search.html',
            search=search,athletes=athletes)
+
+
+#-----------------EVENTOS------------------
   
-#eventos
+#games
 @APP.route('/games/')
 def list_games():
     games = db.execute(
@@ -87,6 +92,7 @@ def list_games():
     ORDER BY idEventos
       ''').fetchall()
     return render_template('games-list.html', games=games)
+
   
 #games id  
 @APP.route('/games/<int:id_evento>/')
@@ -114,7 +120,23 @@ def get_game(id_evento):
   return render_template('games.html', 
            evento_data = evento_data, stats_events_atletas = stats_events_atletas)
 
-  #-------------EQUIPAS------------------
+
+#games search
+@APP.route('/games/search/<expr>')
+def search_games(expr):
+   search = { 'expr': expr }
+   expr = '%' + expr + '%'
+   games = db.execute(
+      '''
+      SELECT year, city, season, idEventos 
+      FROM Eventos
+      WHERE year LIKE ? or city LIKE ? or season LIKE ?
+      ''', (expr, expr, expr)).fetchall()
+   return render_template('games-search.html', search=search, games=games)
+
+
+
+#-------------EQUIPAS------------------
 #teams list
 @APP.route('/teams/')
 def list_teams():
@@ -181,6 +203,43 @@ def list_categories():
    return render_template('categories-list.html', categories=categories)
 
 
+#categories id
+@APP.route('/categories/<int:id_categoria>/')
+def get_category(id_categoria):
+   category_data = db.execute(
+      '''
+      SELECT e.year, a.name, a.idAtletas, p.medal, c.event
+      FROM Eventos e JOIN Participacoes p ON e.idEventos=p.idEventos 
+      JOIN Atletas a ON a.idAtletas=p.idAtletas
+      JOIN Categorias c ON c.idCategorias=p.idCategorias
+      WHERE c.idCategorias = :id AND (p.medal LIKE 'Gold' OR p.medal LIKE 'Silver' OR p.medal LIKE 'Bronze')
+      ORDER BY e.year, CASE 
+        WHEN p.medal = 'Gold' THEN 1
+        WHEN p.medal = 'Silver' THEN 2
+        WHEN p.medal = 'Bronze' THEN 3
+        END
+      ''', {'id': id_categoria}).fetchall()
+   return render_template('categories.html', category_data = category_data)
+
+
+#categories search
+@APP.route('/categories/search/<expr>/')
+def search_categories(expr):
+  search = { 'expr': expr }
+  expr = '%' + expr + '%'
+  categories = db.execute(
+    ''' 
+    SELECT event, idCategorias
+    FROM Categorias
+    WHERE event LIKE ?
+    ''', [expr]).fetchall()
+  return render_template('categories-search.html',
+           search=search,categories=categories)
+ 
+   
+
+
+
 
 
 #-----------------MODALIDADES--------------------------
@@ -212,4 +271,16 @@ def get_sport(id_modalidade):
   print("Sport Data:", sport_data)  
   return render_template('sports.html', sport_data=sport_data)
 
-#rafael
+
+# sports search
+@APP.route('/sports/search/<expr>')
+def search_sports(expr):
+   search = { 'expr': expr }
+   expr = '%' + expr + '%'
+   sports = db.execute(
+      '''
+      SELECT idModalidades, sport
+      FROM Modalidades
+      WHERE sport LIKE ?
+      ''', [expr]).fetchall()
+   return render_template('sports-search.html', search=search, sports=sports)

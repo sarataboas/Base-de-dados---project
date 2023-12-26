@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Category search</h1>
+<p><b>Search expression:</b>"{{ search.expr }}"</p>
+<p>
+<ul>
+  {% for c in categories %}
+  <li><a href="/categories/{{ c.idCategorias }}">{{ c.event }}</a></li>
+  {% endfor %}
+</ul>
+</p>
+{% endblock %}
