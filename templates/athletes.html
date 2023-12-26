@@ -3,7 +3,7 @@
     
 
     {% if athlete_data %}
-    
+
             {% for athlete in athlete_data %}
                 <li>
                   <p>
@@ -27,7 +27,6 @@
             <h2>Athlete Participations</h2>
 
         {% if athlete_participations %}
-            <ul>
                 {% for participation in athlete_participations %}
                     <li>
                         <strong>Event:</strong> {{ participation.event }}<br>
@@ -38,7 +37,6 @@
                         
                     </li>
                 {% endfor %}
-            </ul>
         {% else %}
             <p>No participations found for this athlete.</p>
         {% endif %}
