@@ -42,7 +42,7 @@ def list_athletes():
 def get_athlete(id_atleta):
   athlete_data= db.execute(
       '''
-      SELECT name, idAtletas, age, sex
+      SELECT name, idAtletas, sex, height, weight
       FROM Atletas
       WHERE idAtletas = :id
       ''', {'id': id_atleta}).fetchall()
