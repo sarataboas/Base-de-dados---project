@@ -211,5 +211,3 @@ def get_sport(id_modalidade):
   
   print("Sport Data:", sport_data)  
   return render_template('sports.html', sport_data=sport_data)
-
-#rara
