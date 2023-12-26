@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-    <title>Athlete Information</title>
+    
 
     {% if athlete_data %}
-        <ul>
+
             {% for athlete in athlete_data %}
                 <li>
                   <p>
-                    <b> {{ athlete.name }}</b>
+                    <h2> {{ athlete.name }}</h2>
                   </p>
                   <p>
                     <b>ID:</b> {{ athlete.idAtletas }}<br>
@@ -15,13 +15,18 @@
                   <p>
                     <b>Sex:</b> {{ athlete.sex }}<br>
                   </p>
+                  <p>
+                    <b>Height:</b> {{ athlete.height }}<br>
+                  </p>
+                  <p>
+                    <b> Weight:</b> {{ athlete.weight }}<br>
+                  </p>
                 </li>
             {% endfor %}
 
             <h2>Athlete Participations</h2>
 
         {% if athlete_participations %}
-            <ul>
                 {% for participation in athlete_participations %}
                     <li>
                         <strong>Event:</strong> {{ participation.event }}<br>
@@ -32,7 +37,6 @@
                         
                     </li>
                 {% endfor %}
-            </ul>
         {% else %}
             <p>No participations found for this athlete.</p>
         {% endif %}
