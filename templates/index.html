@@ -39,7 +39,7 @@
 
 <h2>Sample functionality</h2>
 
-<h3>Athlets</h3>
+<h3>Athletes</h3>
 <p>
    <a href="/athletes">List all</a>
 </p>
@@ -62,13 +62,13 @@
     </p>
     <p>Get team info:
     <form name="aid" action="javascript:window.open('/teams/'+document.forms['aid'].elements['id'].value,'_self')">
-       Team Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+       Team Id:<input value="" name="id" type="number" min="1"/><input type="submit" value="get"/>
     </form>
     </p>
       
     <p>Search by team name
       <form name="asearch" action="javascript:window.open('/teams/search/'+document.forms['asearch'].elements['expr'].value,'_self')">
-        <input name="expr" id="expr" value=" " required/>
+        <input name="expr" id="expr" value="" required/>
         <input type="submit" value="search"/>
       </form>
     </p>
