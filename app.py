@@ -255,9 +255,6 @@ def search_categories(expr):
    
 
 
-
-
-
 #-----------------MODALIDADES--------------------------
 
 #sports list
@@ -273,8 +270,8 @@ def list_sports():
 
 
 #sports id
-@APP.route('/sports/<int:id_sport>/')
-def get_sport(id_sport):
+@APP.route('/sports/<int:id_modalidade>/')
+def get_sport(id_modalidade):
   sport_data = db.execute(
       '''
       select c.event as event, m.sport, m.idModalidades, c.idCategorias
@@ -282,7 +279,7 @@ def get_sport(id_sport):
       where m.idModalidades = :id
       order by c.idCategorias
 
-      ''', {'id': id_sport}).fetchall()
+      ''', {'id': id_modalidade}).fetchall()
   
   return render_template('sports.html', sport_data=sport_data)
 
