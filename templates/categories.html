@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-    <title>{{ category_data[0].event }} Results</title>
 
-    <h1>{{ category_data[0].event }} Results</h1>
+    <h2>{{ category_data[0].event }}</h2>
 
     {% if category_data %}
+        <li>
+            <p>
+                <b>ID:</b> {{ category_data[0].idCategorias }}<br>
+            </p>
+        </li>
+        <h2>Podium</h2>
         {% set unique_years = [] %}
         <ul>
             {% for data in category_data %}
@@ -12,7 +17,7 @@
                     {% set _ = unique_years.append(data.year) %}
                     <li>
                         <p>
-                            <b>Year:</b> {{ data.year }}<br>
+                            <b>{{ data.year }} {{data.city}} {{data.season }}</b>
                         </p>
                         
                         <table border="1">

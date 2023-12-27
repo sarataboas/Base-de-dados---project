@@ -1,14 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-    <title>Sports Categories</title>
 
-    {% if sport_data %}
-        <ul>
-            {% for sport in sport_data %}
-                <li>{{ sport.event }}</li>
-            {% endfor %}
-        </ul>
+{% if sport_data %}
+    <h2>{{sport_data[0].sport}} </h2>
+
+        <li>
+        <p>
+            <b>ID:</b> {{ sport_data[0].idModalidades }}<br>
+        </p>
+        </li>
+
+
+    <h2>{{sport_data[0].sport}} Categories </h2>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in sport_data %}
+            <tr>
+                <td><a href="/categories/{{ row.idCategorias }}">{{ row.idCategorias }}</a></td>
+                <td>{{ row.event }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
     {% endif %}
+
 {% endblock %}
 
 
