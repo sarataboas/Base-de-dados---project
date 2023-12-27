@@ -273,8 +273,8 @@ def list_sports():
 
 
 #sports id
-@APP.route('/sports/<int:id_modalidade>/')
-def get_sport(id_modalidade):
+@APP.route('/sports/<int:id_sport>/')
+def get_sport(id_sport):
   sport_data = db.execute(
       '''
       select c.event as event
@@ -282,7 +282,7 @@ def get_sport(id_modalidade):
       where m.idModalidades = :id
       order by c.idCategorias
 
-      ''', {'id': id_modalidade}).fetchall()
+      ''', {'id': id_sport}).fetchall()
   
   print("Sport Data:", sport_data)  
   return render_template('sports.html', sport_data=sport_data)
