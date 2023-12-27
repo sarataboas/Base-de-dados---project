@@ -5,7 +5,6 @@
     {% if athlete_data %}
 
             {% for athlete in athlete_data %}
-                <li>
                   <p>
                     <h2> {{ athlete.name }}</h2>
                   </p>
@@ -21,7 +20,6 @@
                   <p>
                     <b> Weight:</b> {{ athlete.weight }}<br>
                   </p>
-                </li>
             {% endfor %}
 
             <h2>Athlete Participations</h2>
