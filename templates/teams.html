@@ -7,7 +7,7 @@
         {% for team in team_data %}
         <li>
             <p>
-              <b> {{ team.team }}</b>
+              <h2> {{ team.team }}</h2>
             </p>
             <p>
               <b>ID:</b> {{ team.idEquipas }}<br>
@@ -18,26 +18,45 @@
           </li>
       {% endfor %}
 
-    <h2>Team Members</h2>
-    {% if team_members %}
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for member in team_members %}
-            <tr>
-                <td><a href= "/athletes/{{member.idAtletas}}">{{ member.idAtletas }}</a></td>
-                <td>{{ member.name }}</td>
-            </tr>
+    <h2>Team Members for each year</h2>
+          {%if team_members_years %}
+            {%set unique_years = []%}
+            <ul>
+              {% for data in team_members_years %}
+                {% if data.year not in unique_years %}
+                    {% set _ = unique_years.append(data.year) %}
+                    <li>
+                        <p>
+                            <b>{{ data.year }} {{data.city}} {{data.season}}</b> 
+                        </p>
+                        
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for result in team_members_years if result.year == data.year %}
+                                    <tr>
+                                        <td><a href="/athletes/{{ result.idAtletas }}">{{ result.idAtletas }}</a></td>
+                                        <td>{{ result.name }}</td>
+                                        <td>{{ result.event }}</td>
+                                        
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </li>
+                {% endif %}
             {% endfor %}
-        </tbody>
-    </table>
+            </ul>
     {% else %}
-    <p>No team members found.</p>
+      <p>No team members found.</p>
     {% endif %}
     
 </ul>
