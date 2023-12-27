@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <title>Sports Categories</title>
+    
 
     {% if sport_data %}
+    <h2>{{sport_data.sport}} Categories</h2>
         <ul>
             {% for sport in sport_data %}
                 <li>{{ sport.event }}</li>
