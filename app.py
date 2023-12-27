@@ -224,12 +224,12 @@ def list_categories():
 def get_category(id_categoria):
    category_data = db.execute(
       '''
-      SELECT e.year, a.name, a.idAtletas, p.medal, c.event
+      SELECT e.year, a.name, a.idAtletas, p.medal, c.event, e.city, e.season, c.idCategorias
       FROM Eventos e JOIN Participacoes p ON e.idEventos=p.idEventos 
       JOIN Atletas a ON a.idAtletas=p.idAtletas
       JOIN Categorias c ON c.idCategorias=p.idCategorias
       WHERE c.idCategorias = :id AND (p.medal LIKE 'Gold' OR p.medal LIKE 'Silver' OR p.medal LIKE 'Bronze')
-      ORDER BY e.year, CASE 
+      ORDER BY e.year ASC, CASE 
         WHEN p.medal = 'Gold' THEN 1
         WHEN p.medal = 'Silver' THEN 2
         WHEN p.medal = 'Bronze' THEN 3
@@ -277,14 +277,13 @@ def list_sports():
 def get_sport(id_sport):
   sport_data = db.execute(
       '''
-      select c.event as event
+      select c.event as event, m.sport, m.idModalidades, c.idCategorias
       from Categorias c join Modalidades m on c.idModalidades=m.idModalidades
       where m.idModalidades = :id
       order by c.idCategorias
 
       ''', {'id': id_sport}).fetchall()
   
-  print("Sport Data:", sport_data)  
   return render_template('sports.html', sport_data=sport_data)
 
 
