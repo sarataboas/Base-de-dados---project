@@ -23,6 +23,22 @@
         {% endfor %}
       </tbody>
     </table>
+    <table border="1">
+      <thead>
+      <tr>
+          <th>Most rewarded players </th>
+          <th>Number of Medals</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for row in stats_games_medalha %}
+          <tr>
+              <td><a href="/athletes/{{ row.idAtletas }}">{{ row.name }}</a></td>
+              <td>{{ row.count_medals }}</td>
+          </tr>
+      {% endfor %}
+      </tbody>
+  </table>
   {% else %}
     <p>No events found for the specified team.</p>
   {% endif %}

@@ -21,6 +21,10 @@ def index():
       (SELECT COUNT(*) n_eventos FROM Eventos)       
       JOIN
       (SELECT COUNT(*) n_equipas FROM Equipas)
+      JOIN
+      (SELECT COUNT(*) atletas_mulheres FROM Atletas WHERE sex = 'F')
+      JOIN
+      (SELECT COUNT(*) atletas_homens FROM Atletas WHERE sex = 'M')
   ''').fetchone()
   logging.info(stats)
   return render_template('index.html',stats = stats)
@@ -117,8 +121,21 @@ def get_game(id_evento):
     where e.idEventos = :id
     )
     ''', {'id': id_evento}).fetchall()
+  
+    
+  stats_games_medalha = db.execute(
+    '''
+    select count(*) as count_medals, a.name, a.idAtletas
+    from Atletas a join Participacoes p on (a.idAtletas = p.idAtletas)
+    join Eventos e on (e.idEventos = p.idEventos)
+    where( p.medal = 'Gold' or p.medal = 'Silver' or p.medal = 'Bronze')and e.idEventos = :id
+    group by a.name 
+    order by count_medals desc
+    LIMIT 3
+
+    ''',{'id': id_evento}).fetchall()
   return render_template('games.html', 
-           evento_data = evento_data, stats_events_atletas = stats_events_atletas)
+           evento_data = evento_data, stats_events_atletas = stats_events_atletas,  stats_games_medalha = stats_games_medalha)
 
 
 #games search
