@@ -4,7 +4,7 @@ body {
   line-height: 1.6;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: wheat;
+  background-color: rgb(255, 255, 255);
   padding: 30px; }
 
 body > *:first-child {
@@ -153,19 +153,19 @@ blockquote {
 table {
   padding: 0;border-collapse: collapse; }
   table tr {
-    border-top: 1px solid #cccccc;
-    background-color: whitesmoke;
+    border-top: 1px solid rgb(255, 255, 255);
+    background-color: rgb(188, 220, 245);
     margin: 0;
     padding: 0; }
     table tr:nth-child(2n) {
-      background-color: #f8f8f8; }
+      background-color: rgb(209, 228, 244); }
     table tr th {
       font-weight: bold;
-      border: 1px solid #cccccc;
+      border: 1px solid rgb(255, 255, 255);
       margin: 0;
       padding: 6px 13px; }
     table tr td {
-      border: 1px solid #cccccc;
+      border: 1px solid rgb(255, 255, 255);
       margin: 0;
       padding: 6px 13px; }
     table tr th :first-child, table tr td :first-child {
