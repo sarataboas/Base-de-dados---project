@@ -55,7 +55,7 @@ def get_athlete(id_atleta):
   
   athlete_participations = db.execute(
     '''
-    select a.name, e.city, e.season, e.year, c.event, medal
+    select a.name, e.city, e.season, e.year, c.event, p.medal, e.idEventos, c.idCategorias
     from Eventos e join Participacoes p on e.idEventos = p.idEventos
     join Categorias c on p.idCategorias = c.idCategorias
     join Atletas a on p.idAtletas = a.idAtletas

@@ -23,18 +23,29 @@
             {% endfor %}
 
             <h2>Athlete Participations</h2>
-
         {% if athlete_participations %}
-                {% for participation in athlete_participations %}
-                    <li>
-                        <strong>Event:</strong> {{ participation.event }}<br>
-                        <strong>City:</strong> {{ participation.city }}<br>
-                        <strong>Season:</strong> {{ participation.season }}<br>
-                        <strong>Year:</strong> {{ participation.year }}<br>
-                        <strong>Medal:</strong> {{ participation.medal }}<br>
-                        
-                    </li>
-                {% endfor %}
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Year</th>
+                        <th>City</th>
+                        <th>Season</th>
+                        <th>Medal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for participation in athlete_participations %}
+                        <tr>
+                            <td><a href="/categories/{{ participation.idCategorias }}">{{ participation.event }}</a></td>
+                            <td>{{ participation.year }}</td>
+                            <td>{{ participation.city }}</td>
+                            <td>{{ participation.season }}</td>
+                            <td>{{ participation.medal }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% else %}
             <p>No participations found for this athlete.</p>
         {% endif %}
