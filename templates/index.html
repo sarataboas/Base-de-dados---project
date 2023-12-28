@@ -54,7 +54,7 @@
 </p>
 <p>Get athlete info:
   <form name="mid" action="javascript:window.open('/athletes/'+document.forms['mid'].elements['id'].value,'_self')">
-     Athletes Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+     Athletes Id:<input value=" " name="id" type="number" min="0"/><input type="submit" value="get"/>
   </form>
   </p>
 
@@ -71,7 +71,7 @@
     </p>
     <p>Get team info:
     <form name="aid" action="javascript:window.open('/teams/'+document.forms['aid'].elements['id'].value,'_self')">
-       Team Id:<input value="" name="id" type="number" min="1"/><input type="submit" value="get"/>
+       Team Id:<input value="" name="id" type="number" min="0"/><input type="submit" value="get"/>
     </form>
     </p>
       
@@ -90,7 +90,7 @@
     
     <p>Get Games info:
     <form name="gid" action="javascript:window.open('/games/'+document.forms['gid'].elements['id'].value,'_self')">
-       Games Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+       Games Id:<input value=" " name="id" type="number" min="0"/><input type="submit" value="get"/>
     </form>
     </p>    
     <p>Search by game year, city or season
@@ -107,7 +107,7 @@
     </p>
     <p>Get sports info:
     <form name="tid" action="javascript:window.open('/sports/'+document.forms['tid'].elements['id'].value,'_self')">
-       Sports Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+       Sports Id:<input value=" " name="id" type="number" min="0"/><input type="submit" value="get"/>
     </form>
     </p>
     <p>Search by sport name 
@@ -124,8 +124,8 @@
     </p>
     
     <p>Get categories info:
-    <form name="gid" action="javascript:window.open('/categories/'+document.forms['gid'].elements['id'].value,'_self')">
-       Category Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+    <form name="tid" action="javascript:window.open('/categories/'+document.forms['tid'].elements['id'].value,'_self')">
+      Category Id:<input value=" " name="id" type="number" min="0"/><input type="submit" value="get"/>
     </form>
     </p>
     <p>Search by category name 
@@ -135,23 +135,4 @@
       </form>
     </p>
 
-<<<<<<< HEAD
-    <h3>Sports</h3>
-    <p>
-       <a href="/sports">List all</a>
-    </p>
-    <p>Get sports info:
-    <form name="tid" action="javascript:window.open('/sports/'+document.forms['tid'].elements['id'].value,'_self')">
-       Sports Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
-    </form>
-    </p>
-    <p>Search by sport name 
-      <form name="ssearch" action="javascript:window.open('/sports/search/'+document.forms['ssearch'].elements['expr'].value,'_self')">
-        <input name="expr" id="expr" value="" required/>
-        <input type="submit" value="search"/>
-      </form>
-    </p>
-
-=======
->>>>>>> 223ee3580f0b2cb80445e099d4e420aa97363cdb
 {% endblock %}

@@ -78,11 +78,7 @@ def search_athletes(expr):
   expr = '%' + expr + '%'
   athletes = db.execute(
       ''' 
-<<<<<<< HEAD
       SELECT name, idAtletas
-=======
-      SELECT name, idAtltas
->>>>>>> 223ee3580f0b2cb80445e099d4e420aa97363cdb
       FROM Atletas
       WHERE name LIKE ?
       GROUP BY name
@@ -100,7 +96,7 @@ def list_games():
       '''
     SELECT idEventos, year, season
     FROM Eventos
-    ORDER BY idEventos
+    ORDER BY year
       ''').fetchall()
     return render_template('games-list.html', games=games)
 
