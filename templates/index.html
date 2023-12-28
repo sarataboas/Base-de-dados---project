@@ -35,6 +35,15 @@
     <td>Teams</td>
     <td>{{ stats.n_equipas }}</td>
   </tr>
+  <tr>
+    <td>Woman Athletes</td>
+    <td>{{ stats.atletas_mulheres }}</td>
+  </tr>
+  <tr>
+    <td>Men Athletes</td>
+    <td>{{ stats.atletas_homens }}</td>
+  </tr>
+  
 </table>
 
 <h2>Sample functionality</h2>
@@ -51,7 +60,7 @@
 
   <p>Search by athlete name:
     <form name="msearch" action="javascript:window.open('/athletes/search/'+document.forms['msearch'].elements['expr'].value,'_self')">
-      <input name="expr" id="expr" value=" " required/>
+      <input name="expr" id="expr" value="" required/>
       <input type="submit" value="search"/>
     </form>
     </p>
@@ -92,6 +101,22 @@
     </p>
 
 
+    <h3>Sports</h3>
+    <p>
+       <a href="/sports">List all</a>
+    </p>
+    <p>Get sports info:
+    <form name="tid" action="javascript:window.open('/sports/'+document.forms['tid'].elements['id'].value,'_self')">
+       Sports Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+    </form>
+    </p>
+    <p>Search by sport name 
+      <form name="ssearch" action="javascript:window.open('/sports/search/'+document.forms['ssearch'].elements['expr'].value,'_self')">
+        <input name="expr" id="expr" value="" required/>
+        <input type="submit" value="search"/>
+      </form>
+    </p>
+
 
     <h3>Categories</h3>
     <p>
@@ -110,6 +135,7 @@
       </form>
     </p>
 
+<<<<<<< HEAD
     <h3>Sports</h3>
     <p>
        <a href="/sports">List all</a>
@@ -126,4 +152,6 @@
       </form>
     </p>
 
+=======
+>>>>>>> 223ee3580f0b2cb80445e099d4e420aa97363cdb
 {% endblock %}
