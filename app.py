@@ -78,11 +78,7 @@ def search_athletes(expr):
   expr = '%' + expr + '%'
   athletes = db.execute(
       ''' 
-<<<<<<< HEAD
       SELECT name, idAtletas
-=======
-      SELECT name, idAtltas
->>>>>>> 223ee3580f0b2cb80445e099d4e420aa97363cdb
       FROM Atletas
       WHERE name LIKE ?
       GROUP BY name
