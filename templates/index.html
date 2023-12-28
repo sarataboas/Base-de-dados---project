@@ -101,24 +101,6 @@
     </p>
 
 
-
-    <h3>Categories</h3>
-    <p>
-       <a href="/categories">List all</a>
-    </p>
-    
-    <p>Get categories info:
-    <form name="gid" action="javascript:window.open('/categories/'+document.forms['gid'].elements['id'].value,'_self')">
-       Category Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
-    </form>
-    </p>
-    <p>Search by category name 
-      <form name="csearch" action="javascript:window.open('/categories/search/'+document.forms['csearch'].elements['expr'].value,'_self')">
-        <input name="expr" id="expr" value="" required/>
-        <input type="submit" value="search"/>
-      </form>
-    </p>
-
     <h3>Sports</h3>
     <p>
        <a href="/sports">List all</a>
@@ -136,6 +118,21 @@
     </p>
 
 
-
+    <h3>Categories</h3>
+    <p>
+       <a href="/categories">List all</a>
+    </p>
+    
+    <p>Get categories info:
+    <form name="gid" action="javascript:window.open('/categories/'+document.forms['gid'].elements['id'].value,'_self')">
+       Category Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
+    </form>
+    </p>
+    <p>Search by category name 
+      <form name="csearch" action="javascript:window.open('/categories/search/'+document.forms['csearch'].elements['expr'].value,'_self')">
+        <input name="expr" id="expr" value="" required/>
+        <input type="submit" value="search"/>
+      </form>
+    </p>
 
 {% endblock %}

@@ -76,9 +76,10 @@ def search_athletes(expr):
   expr = '%' + expr + '%'
   athletes = db.execute(
       ''' 
-      SELECT DISTINCT name
+      SELECT name, idAtltas
       FROM Atletas
       WHERE name LIKE ?
+      GROUP BY name
       ''', [expr]).fetchall()
   return render_template('athletes-search.html',
            search=search,athletes=athletes)
@@ -187,7 +188,7 @@ def get_team(id_equipa):
   
   team_members_years = db.execute(
     '''
-    SELECT DISTINCT a.name, eq.team, a.idAtletas, eq.NOC, e.year, c.event, e.city, e.season
+    SELECT  a.name, eq.team, a.idAtletas, eq.NOC, e.year, c.event, e.city, e.season
     FROM Atletas a JOIN Equipas eq ON (a.idEquipas = eq.idEquipas)
     JOIN Participacoes p ON (p.idAtletas = a.idAtletas)
     JOIN Eventos e ON (e.idEventos = p.idEventos)
@@ -198,6 +199,7 @@ def get_team(id_equipa):
       FROM Atletas a JOIN Equipas eq ON (a.idEquipas = eq.idEquipas)
       where eq.idEquipas = :id
     )
+    GROUP BY a.name
     ORDER BY e.year ASC
     ''', {'id': id_equipa}).fetchall()
 
