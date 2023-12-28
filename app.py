@@ -25,12 +25,15 @@ def index():
   logging.info(stats)
   return render_template('index.html',stats = stats)
 
+
+
+#--------------------ATLETAS-----------------------
 #athletes 
 @APP.route('/athletes/')
 def list_athletes():
     athletes = db.execute(
       '''
-    SELECT MAX(idAtletas) AS idAtletas, name
+    SELECT idAtletas, name
     FROM Atletas
     GROUP BY name
     ORDER BY name
@@ -38,7 +41,6 @@ def list_athletes():
     return render_template('athletes-list.html', athletes=athletes)
   
 
-#--------------------ATLETAS-----------------------
 #athletes id  
 @APP.route('/athletes/<int:id_atleta>/')
 def get_athlete(id_atleta):
@@ -72,9 +74,10 @@ def search_athletes(expr):
   expr = '%' + expr + '%'
   athletes = db.execute(
       ''' 
-      SELECT DISTINCT name
+      SELECT name, idAtletas
       FROM Atletas
       WHERE name LIKE ?
+      GROUP BY name
       ''', [expr]).fetchall()
   return render_template('athletes-search.html',
            search=search,athletes=athletes)

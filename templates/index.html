@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Ollympic Games Database</h1>
-<p> This webpage let's you navigate throught Ollympic Games History. 
+<h1>Olympic Games Database</h1>
+<p> This webpage let's you navigate throught Olympic Games History. 
   The application is built using 
   <a href="https://docs.python.org/3/library/sqlite3.html">sqlite3</a>,
   <a href="https://flask.palletsprojects.com">Flask</a>, and
@@ -115,7 +115,7 @@
        <a href="/sports">List all</a>
     </p>
     <p>Get sports info:
-    <form name="tid" action="javascript:window.open('/teams/'+document.forms['tid'].elements['id'].value,'_self')">
+    <form name="tid" action="javascript:window.open('/sports/'+document.forms['tid'].elements['id'].value,'_self')">
        Sports Id:<input value=" " name="id" type="number" min="1"/><input type="submit" value="get"/>
     </form>
     </p>
@@ -125,8 +125,5 @@
         <input type="submit" value="search"/>
       </form>
     </p>
-
-
-
 
 {% endblock %}
