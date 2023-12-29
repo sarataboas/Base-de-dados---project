@@ -5,7 +5,7 @@
 <p>
 <ul>
   {% for g in games %}
-  <li><a href="/games/{{ g.idEventos }}">{{ g.idEventos }}</a></li>
+  <li><a href="/games/{{ g.idEventos }}">{{ g.year }} {{g.season}} {{g.city}}</a></li>|
   {% endfor %}
 </ul>
 </p>

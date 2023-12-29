@@ -21,16 +21,23 @@ def index():
       (SELECT COUNT(*) n_eventos FROM Eventos)       
       JOIN
       (SELECT COUNT(*) n_equipas FROM Equipas)
+      JOIN
+      (SELECT COUNT(*) atletas_mulheres FROM Atletas WHERE sex = 'F')
+      JOIN
+      (SELECT COUNT(*) atletas_homens FROM Atletas WHERE sex = 'M')
   ''').fetchone()
   logging.info(stats)
   return render_template('index.html',stats = stats)
 
+
+
+#--------------------ATLETAS-----------------------
 #athletes 
 @APP.route('/athletes/')
 def list_athletes():
     athletes = db.execute(
       '''
-    SELECT MAX(idAtletas) AS idAtletas, name
+    SELECT idAtletas, name
     FROM Atletas
     GROUP BY name
     ORDER BY name
@@ -38,7 +45,6 @@ def list_athletes():
     return render_template('athletes-list.html', athletes=athletes)
   
 
-#--------------------ATLETAS-----------------------
 #athletes id  
 @APP.route('/athletes/<int:id_atleta>/')
 def get_athlete(id_atleta):
@@ -51,7 +57,7 @@ def get_athlete(id_atleta):
   
   athlete_participations = db.execute(
     '''
-    select a.name, e.city, e.season, e.year, c.event, medal
+    select a.name, e.city, e.season, e.year, c.event, p.medal, e.idEventos, c.idCategorias
     from Eventos e join Participacoes p on e.idEventos = p.idEventos
     join Categorias c on p.idCategorias = c.idCategorias
     join Atletas a on p.idAtletas = a.idAtletas
@@ -72,9 +78,10 @@ def search_athletes(expr):
   expr = '%' + expr + '%'
   athletes = db.execute(
       ''' 
-      SELECT DISTINCT name
+      SELECT name, idAtletas
       FROM Atletas
       WHERE name LIKE ?
+      GROUP BY name
       ''', [expr]).fetchall()
   return render_template('athletes-search.html',
            search=search,athletes=athletes)
@@ -89,7 +96,7 @@ def list_games():
       '''
     SELECT idEventos, year, season
     FROM Eventos
-    ORDER BY idEventos
+    ORDER BY year
       ''').fetchall()
     return render_template('games-list.html', games=games)
 
@@ -117,8 +124,21 @@ def get_game(id_evento):
     where e.idEventos = :id
     )
     ''', {'id': id_evento}).fetchall()
+  
+    
+  stats_games_medalha = db.execute(
+    '''
+    select count(*) as count_medals, a.name, a.idAtletas
+    from Atletas a join Participacoes p on (a.idAtletas = p.idAtletas)
+    join Eventos e on (e.idEventos = p.idEventos)
+    where( p.medal = 'Gold' or p.medal = 'Silver' or p.medal = 'Bronze')and e.idEventos = :id
+    group by a.name 
+    order by count_medals desc
+    LIMIT 3
+
+    ''',{'id': id_evento}).fetchall()
   return render_template('games.html', 
-           evento_data = evento_data, stats_events_atletas = stats_events_atletas)
+           evento_data = evento_data, stats_events_atletas = stats_events_atletas,  stats_games_medalha = stats_games_medalha)
 
 
 #games search
@@ -170,7 +190,7 @@ def get_team(id_equipa):
   
   team_members_years = db.execute(
     '''
-    SELECT DISTINCT a.name, eq.team, a.idAtletas, eq.NOC, e.year, c.event, e.city, e.season
+    SELECT  a.name, eq.team, a.idAtletas, eq.NOC, e.year, c.event, e.city, e.season
     FROM Atletas a JOIN Equipas eq ON (a.idEquipas = eq.idEquipas)
     JOIN Participacoes p ON (p.idAtletas = a.idAtletas)
     JOIN Eventos e ON (e.idEventos = p.idEventos)
@@ -181,6 +201,7 @@ def get_team(id_equipa):
       FROM Atletas a JOIN Equipas eq ON (a.idEquipas = eq.idEquipas)
       where eq.idEquipas = :id
     )
+    GROUP BY a.name
     ORDER BY e.year ASC
     ''', {'id': id_equipa}).fetchall()
 
@@ -255,9 +276,6 @@ def search_categories(expr):
    
 
 
-
-
-
 #-----------------MODALIDADES--------------------------
 
 #sports list
@@ -273,8 +291,8 @@ def list_sports():
 
 
 #sports id
-@APP.route('/sports/<int:id_sport>/')
-def get_sport(id_sport):
+@APP.route('/sports/<int:id_modalidade>/')
+def get_sport(id_modalidade):
   sport_data = db.execute(
       '''
       select c.event as event, m.sport, m.idModalidades, c.idCategorias
@@ -282,7 +300,7 @@ def get_sport(id_sport):
       where m.idModalidades = :id
       order by c.idCategorias
 
-      ''', {'id': id_sport}).fetchall()
+      ''', {'id': id_modalidade}).fetchall()
   
   return render_template('sports.html', sport_data=sport_data)
 
