@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2> Database Statistics </h2>
+<table>
+  <tr>
+    <th>Items</th>
+    <th>Count</th>
+  </tr>
+  <tr>
+    <td>Athletes</td>
+    <td>{{ stats.n_atletas }}</td>
+  </tr>
+  <tr>
+    <td>Sports</td>
+    <td>{{ stats.n_modalidades }}</td>
+  </tr>
+  <tr>
+    <td>Categories</td>
+    <td>{{ stats.n_categorias }}</td>
+  </tr>
+  <tr>
+    <td>Games</td>
+    <td>{{ stats.n_eventos }}</td>
+  </tr>
+  <tr>
+    <td>Teams</td>
+    <td>{{ stats.n_equipas }}</td>
+  </tr>
+  <tr>
+  
+</table>
+<h2> Athlete General Statistics </h2>
+<table>
+  <tr>
+    <th>Items</th>
+    <th>Count</th>
+  </tr>
+  <tr>
+    <td>Woman Athletes</td>
+    <td>{{ stats.atletas_mulheres }}</td>
+  </tr>
+  <tr>
+    <td>Men Athletes</td>
+    <td>{{ stats.atletas_homens }}</td>
+  </tr>
+</table>
+<div>
+    <h2>Top 10 Athletes by Medal Count</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Athlete Name</th>
+                <th>Medal Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in stats_athletes %}
+                <tr>
+                    <td>{{ a.name }}</td>
+                    <td>{{ a.count_medals }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+  
+{% endblock %}
