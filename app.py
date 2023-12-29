@@ -112,6 +112,13 @@ def get_athlete(id_atleta):
       WHERE idAtletas = :id
       ''', {'id': id_atleta}).fetchall()
   
+  
+  return render_template('athletes.html', athlete_data = athlete_data)
+
+@APP.route('/athletes/<int:id_atleta>/athletes-participations')
+def athlete_participations(id_atleta):
+  
+  
   athlete_participations = db.execute(
     '''
     select a.name, e.city, e.season, e.year, c.event, p.medal, e.idEventos, c.idCategorias
@@ -124,8 +131,7 @@ def get_athlete(id_atleta):
     where idAtletas = :id);
     ''', {'id': id_atleta}).fetchall()
   
-  return render_template('athletes.html', 
-           athlete_data = athlete_data, athlete_participations = athlete_participations)
+  return render_template('athletes-participations.html', athlete_participations = athlete_participations)
 
 
 #athletes search

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Athlete Participations</h2>
+        {% if athlete_participations %}
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Year</th>
+                        <th>City</th>
+                        <th>Season</th>
+                        <th>Medal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for participation in athlete_participations %}
+                        <tr>
+                            <td><a href="/categories/{{ participation.idCategorias }}">{{ participation.event }}</a></td>
+                            <td>{{ participation.year }}</td>
+                            <td>{{ participation.city }}</td>
+                            <td>{{ participation.season }}</td>
+                            <td>{{ participation.medal }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No participations found for this athlete.</p>
+        {% endif %}
+
+{% endblock %}
+    
+
