@@ -50,7 +50,6 @@ def statistics():
       (SELECT COUNT(*) atletas_homens FROM Atletas WHERE sex = 'M')
       
   ''').fetchone()
-  
   stats_athletes = db.execute('''
     select count(*) as count_medals, a.name, a.idAtletas
     from Atletas a join Participacoes p on (a.idAtletas = p.idAtletas)
@@ -59,6 +58,7 @@ def statistics():
     order by count_medals desc
     LIMIT 10
   ''').fetchall()
+  return render_template('general-statistics.html',stats = stats, stats_athletes=stats_athletes)
   return render_template('general-statistics.html',stats = stats, stats_athletes=stats_athletes)
   
 
