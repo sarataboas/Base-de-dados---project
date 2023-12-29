@@ -29,6 +29,41 @@ def index():
   logging.info(stats)
   return render_template('index.html',stats = stats)
 
+#-------------------------------------------------------GENERAL-----STATISTICS----------------------------------------------------------------------
+
+@APP.route('/general-statistics/')
+def statistics():
+  stats = db.execute('''
+   SELECT * FROM
+      (SELECT COUNT(*) n_atletas FROM Atletas)
+      JOIN
+      (SELECT COUNT(*) n_modalidades FROM Modalidades)   
+      JOIN
+      (SELECT COUNT(*) n_categorias FROM Categorias) 
+      JOIN 
+      (SELECT COUNT(*) n_eventos FROM Eventos)       
+      JOIN
+      (SELECT COUNT(*) n_equipas FROM Equipas)
+       JOIN
+      (SELECT COUNT(*) atletas_mulheres FROM Atletas WHERE sex = 'F')
+      JOIN
+      (SELECT COUNT(*) atletas_homens FROM Atletas WHERE sex = 'M')
+      
+  ''').fetchone()
+  stats_athletes = db.execute('''
+    select count(*) as count_medals, a.name, a.idAtletas
+    from Atletas a join Participacoes p on (a.idAtletas = p.idAtletas)
+    join Eventos e on (e.idEventos = p.idEventos)
+    where( p.medal = 'Gold' or p.medal = 'Silver' or p.medal = 'Bronze')
+    group by a.name 
+    order by count_medals desc
+    LIMIT 10
+  ''').fetchone()
+  return render_template('general-statistics.html',stats = stats, stats_athletes=stats_athletes)
+  
+
+
+#---------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 #--------------------ATLETAS-----------------------
