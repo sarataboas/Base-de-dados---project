@@ -58,11 +58,33 @@ def statistics():
     order by count_medals desc
     LIMIT 10
   ''').fetchall()
-  return render_template('general-statistics.html',stats = stats, stats_athletes=stats_athletes)
   
-
-
-#---------------------------------------------------------------------------------------------------------------------------------------------------
+  stats_equipas = db.execute('''
+  select e.team, count(*) as count_medals, e.idEquipas
+  from equipas e join atletas a on a.idEquipas = e.idEquipas
+  join participacoes p on p.idAtletas = a.idAtletas
+  where (p.medal = 'Gold' or p.medal = 'Silver' or p.medal = 'Bronze') 
+  group by e.team
+  order by count_medals desc
+  LIMIT 10;
+  ''').fetchall()
+  
+    
+  stats_games = db.execute('''
+  select e.year, e.season, e.city, count(*) as number_athletes, e.idEventos,
+  count (case when a.sex = 'F' then 1 end) as number_female_athletes, 
+  count (case when a.sex = 'M' then 1 end) as number_male_athletes
+  from eventos e 
+  join participacoes p on e.idEventos = p.idEventos
+  join atletas a on p.idAtletas = a.idAtletas
+  group by e.year, e.season, e.city
+  order by number_athletes desc
+  LIMIT 10;
+  ''').fetchall()
+  
+  return render_template('general-statistics.html',stats = stats, stats_athletes=stats_athletes, stats_equipas = stats_equipas, stats_games = stats_games)
+  
+  
 
 
 #--------------------ATLETAS-----------------------

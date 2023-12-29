@@ -70,6 +70,64 @@
       </tbody>
   </table>
 </div>
+<div>
+    <h2>Top 10 Teams by Medal Count</h2>
 
-  
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Team ID</th>
+                <th>Team Name</th>
+                <th>Medal Count</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in stats_equipas %}
+                <tr>
+                    <td>
+                      <a href="/teams/{{ row.idEquipas }}">{{ row.idEquipas }}</a>
+                    </td>
+                    <td>{{ row.team }}</td>
+                    <td>{{ row.count_medals }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+  <div>
+    <div>
+        <h2>Top 10 Teams by Medal Count</h2>
+    
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Game ID</th>
+                    <th>Year</th>
+                    <th>City</th>
+                    <th>Season</th>
+                    <th>Athletes</th>
+                    <th>Female Athletes</th>
+                    <th>Male Athletes</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in stats_games %}
+                    <tr>
+                        <td>
+                          <a href="/games/{{ row.idEventos }}">{{ row.idEventos }}</a>
+                        </td>
+                        <td>{{ row.year }}</td>
+                        <td>{{ row.city }}</td>
+                        <td>{{ row.season }}</td>
+                        <td>{{ row.number_athletes }}</td>
+                        <td>{{ row.number_female_athletes }}</td>
+                        <td>{{ row.number_male_athletes }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+      <div>
 {% endblock %}
