@@ -51,8 +51,9 @@ def statistics():
       
   ''').fetchone()
   stats_athletes = db.execute('''
-    select count(*) as count_medals, a.name, a.idAtletas
+    select count(*) as count_medals, a.name, a.idAtletas, e.team
     from Atletas a join Participacoes p on (a.idAtletas = p.idAtletas)
+    join Equipas e on e.idEquipas = a.idEquipas
     where( p.medal = 'Gold' or p.medal = 'Silver' or p.medal = 'Bronze')
     group by a.name 
     order by count_medals desc
