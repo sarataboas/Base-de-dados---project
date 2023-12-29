@@ -46,7 +46,7 @@
   </tr>
 </table>
 <div>
-    <h2>Top 10 Athletes by Medal Count</h2>
+<h2>Top 10 Athletes by Medal Count</h2>
     <table border="1">
         <thead>
             <tr>
@@ -55,15 +55,16 @@
             </tr>
         </thead>
         <tbody>
-            {% for a in stats_athletes %}
+            {% for a in stats %}
                 <tr>
                     <td>{{ a.name }}</td>
-                    <td>{{ a.count_medals }}</td>
+                    <td>{{ a.count_medals_atletas }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+<div>
 
   
 {% endblock %}
