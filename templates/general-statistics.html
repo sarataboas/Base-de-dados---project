@@ -53,8 +53,8 @@
           <tr>
               <th>Athlete ID</th>
               <th>Athlete Name</th>
+              <th>Team</th>
               <th>Medal Count</th>
-              
           </tr>
       </thead>
       <tbody>
@@ -64,6 +64,7 @@
                     <a href="/athletes/{{ row.idAtletas }}">{{ row.idAtletas }}</a>
                   </td>
                   <td>{{ row.name }}</td>
+                  <td>{{ row.team }}</td>
                   <td>{{ row.count_medals }}</td>
               </tr>
           {% endfor %}
