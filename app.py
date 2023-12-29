@@ -279,6 +279,14 @@ def list_categories():
 def get_category(id_categoria):
    category_data = db.execute(
       '''
+      SELECT event, idCategorias
+      FROM Categorias
+      WHERE idCategorias = :id
+      ''', {'id': id_categoria}).fetchall()
+   
+
+   category_results_years = db.execute(
+      '''
       SELECT e.year, a.name, a.idAtletas, p.medal, c.event, e.city, e.season, c.idCategorias
       FROM Eventos e JOIN Participacoes p ON e.idEventos=p.idEventos 
       JOIN Atletas a ON a.idAtletas=p.idAtletas
@@ -290,7 +298,7 @@ def get_category(id_categoria):
         WHEN p.medal = 'Bronze' THEN 3
         END
       ''', {'id': id_categoria}).fetchall()
-   return render_template('categories.html', category_data = category_data)
+   return render_template('categories.html', category_data = category_data, category_results_years = category_results_years)
 
 
 #categories search
